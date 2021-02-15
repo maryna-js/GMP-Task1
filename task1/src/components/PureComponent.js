@@ -5,7 +5,6 @@ class PureComponent extends React.PureComponent {
         return (
             <div className="element bg-tacha">This is Pure Component</div>
         )
-
     }
 }
 

@@ -5,7 +5,6 @@ class ClassComponent extends React.Component {
         return (
             <div className="element bg-jambalaya">This is Class Component</div>
         )
-
     }
 }
 

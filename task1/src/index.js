@@ -10,7 +10,6 @@ import PureComponent from './components/PureComponent';
 function Main() {
     return (
         <>
-
             <div className="container">
                 <div className="text">Hello world</div>
                 <div className="wrapper">
