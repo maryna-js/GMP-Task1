@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Button from './button/button';
 
 import '../styles/style.css';
 
@@ -7,6 +8,7 @@ class App extends Component {
         return (
             <div>
                 <h1>Start Page</h1>
+                <Button label="component to test" />
             </div>
         );
     }
