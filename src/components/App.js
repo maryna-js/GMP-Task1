@@ -1,14 +1,21 @@
 import React, { Component } from "react";
-import Button from './button/button';
-
-import '../styles/style.css';
+import Header from './header';
+import SearchPanel from './search';
+import SearchResults from './results';
+import Footer from './footer';
+import ErrorBoundary from './error-boundary';
+import '../styles/style.scss';
 
 class App extends Component {
     render() {
         return (
-            <div>
-                <h1>Start Page</h1>
-                <Button label="component to test" />
+            <div className="container">
+                <ErrorBoundary>
+                    <Header />
+                    <SearchPanel />
+                    <SearchResults />
+                    <Footer />
+                </ErrorBoundary>
             </div>
         );
     }

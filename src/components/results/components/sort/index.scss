@@ -1,0 +1,36 @@
+.sort {
+  &-items {
+    font-family: "Lato-Regular";
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    font-size: 1rem;
+  }
+  &-by {
+    font-family: "Lato-Light";
+    color: #a0a0a0;
+    text-transform: uppercase;
+    padding-right: 15px;
+  }
+}
+
+.filter-tabs-item {
+  font-family: "Lato-Light";
+  background: transparent;
+  padding: 15px 10px;
+  border: 0;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  border-radius: 4px;
+  background: #232323;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}

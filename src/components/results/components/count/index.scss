@@ -1,0 +1,11 @@
+.result-count {
+  font-family: "Lato-Light";
+  color: #ffffff;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  padding-bottom: 20px;
+  &-number {
+    font-family: "Lato-Black";
+    padding-right: 8px;
+  }
+}

@@ -1,0 +1,26 @@
+.item {
+  &-result {
+    width: 31%;
+  }
+  &-description {
+    display: flex;
+    justify-content: space-between;
+    color: #bdbdbd;
+    padding: 10px 0 0;
+    align-items: center;
+  }
+  &-name {
+    font-family: "Lato-Regular";
+    font-size: 1.2rem;
+  }
+  &-year {
+    font-family: "Lato-Light";
+    padding: 3px 6px;
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+  }
+  &-genre {
+    color: #606060;
+    font-size: 1rem;
+  }
+}

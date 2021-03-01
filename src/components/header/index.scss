@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #232323;
+  padding: 30px 20px;
+}
+
+.add-button {
+  background: #555555;
+  padding: 15px 20px;
+  border: 0;
+  text-transform: uppercase;
+  color: #f65261;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}
