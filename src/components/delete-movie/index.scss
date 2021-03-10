@@ -1,0 +1,66 @@
+.add-modal {
+  position: absolute;
+  top: 105px;
+  left: 20%;
+  z-index: 99;
+  background: #232323;
+  min-height: 300px;
+  width: 60%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px 30px;
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+  }
+  &-text {
+    color: white;
+    font-size: 1rem;
+  }
+  &-header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  &-close {
+    color: #0a0a0a;
+    font-size: 21px;
+    text-align: right;
+  }
+  &-heading {
+    font-size: 2rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-family: "Lato-Thin";
+  }
+  &-button {
+    &-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+      padding: 40px 0 0;
+    }
+    &-reset {
+      color: #f65261;
+      background: transparent;
+      border: 1px solid #f65261;
+      padding: 15px 30px;
+      border-radius: 4px;
+      margin-right: 10px;
+      text-transform: uppercase;
+    }
+    &-submit {
+      color: #ffffff;
+      background: #f65261;
+      border: 1px solid #f65261;
+      padding: 15px 30px;
+      border-radius: 4px;
+      margin-right: 10px;
+      text-transform: uppercase;
+    }
+  }
+  &-blur {
+    filter: blur(2px);
+  }
+}

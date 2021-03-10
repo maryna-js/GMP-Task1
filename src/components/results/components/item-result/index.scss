@@ -1,6 +1,7 @@
 .item {
   &-result {
     width: 31%;
+    position: relative;
   }
   &-description {
     display: flex;
@@ -22,5 +23,10 @@
   &-genre {
     color: #606060;
     font-size: 1rem;
+  }
+  &-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
   }
 }

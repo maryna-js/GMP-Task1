@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import MenuDropdown from '../dropdown-menu'
 import NoImage from '../../../../assets/images/no-image.png';
 import './index.scss';
 
 function ItemResult(props) {
-    const { name, genre, year } = props;
+    const { name, genre, year, showEditMovieModal, showDeleteMovieModal } = props;
     return (
         <div className="item-result">
             <img src={NoImage} alt="" width="100%" />
@@ -14,6 +15,9 @@ function ItemResult(props) {
             </div>
             <div className="item-genre">
                 {genre}
+            </div>
+            <div className="item-menu">
+                <MenuDropdown showEditMovieModal={showEditMovieModal} showDeleteMovieModal={showDeleteMovieModal} />
             </div>
         </div>
     );

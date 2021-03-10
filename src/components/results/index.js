@@ -29,7 +29,8 @@ const data = [
     }
 ];
 
-function SearchResults() {
+function SearchResults(props) {
+    const { showEditMovieModal, showDeleteMovieModal } = props;
     return (
         <div className="wrapper-results">
             <div className="wrapper-filter">
@@ -38,7 +39,7 @@ function SearchResults() {
             </div>
             <div className="wrapper-results-box">
                 <ResultCount />
-                <ItemList data={data} />
+                <ItemList data={data} showEditMovieModal={showEditMovieModal} showDeleteMovieModal={showDeleteMovieModal} />
             </div>
         </div>
     );
