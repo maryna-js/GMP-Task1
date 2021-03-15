@@ -26,8 +26,17 @@ class App extends Component {
     }
 
     componentDidMount() {
-
+        console.log("Component Did Mount")
     }
+
+    componentDidUpdate() {
+        console.log("Component Did Update")
+    }
+
+    componentWillUnmount() {
+        console.log("Component Will Unmount")
+    }
+
 
     showAddMovieModal() {
         this.setState({
@@ -70,7 +79,7 @@ class App extends Component {
         return (
             <div className="container">
                 <ErrorBoundary>
-                    <div className={`${addMovie || editMovie || deleteMovie && 'container-blur'}`}>
+                    <div className={`${(addMovie || editMovie || deleteMovie) && 'container-blur'}`}>
                         <Header showAddMovieModal={this.showAddMovieModal} />
                         <SearchPanel />
                         <SearchResults showEditMovieModal={this.showEditMovieModal} showDeleteMovieModal={this.showDeleteMovieModal} />
