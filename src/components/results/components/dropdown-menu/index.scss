@@ -1,0 +1,28 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 7px 0;
+  background: #424242;
+  &-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: end;
+  }
+  &-button {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    &-item {
+      padding: 9px 15px;
+      border: 0;
+      background: #424242;
+      color: #ffffff;
+      &:hover {
+        background: #f65261;
+        color: #000000;
+        cursor: pointer;
+      }
+    }
+  }
+}

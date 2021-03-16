@@ -26,4 +26,8 @@ body {
 .container {
   max-width: 1240px;
   margin: 0 auto;
+  position: relative;
+  &-blur {
+    filter: blur(2px);
+  }
 }
