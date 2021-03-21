@@ -20,7 +20,7 @@ export default class MenuDropdown extends Component {
         }))
     }
 
-    closeMenu(event) {
+    closeMenu() {
         this.setState({ showMenu: false });
     }
 
@@ -38,20 +38,18 @@ export default class MenuDropdown extends Component {
                         ? (
                             <div
                                 className="menu"
-                            // ref={(element) => {
-                            //     this.dropdownMenu = element;
-                            // }}
                             >
                                 <button
                                     className="menu-button-item"
                                     onClick={() => {
-                                        this.props.showEditMovieModal();
+                                        this.props.showEditMovieModal(true);
                                         this.closeMenu();
                                     }}> Edit </button>
                                 <button
                                     className="menu-button-item"
-                                    onClick={() => {
-                                        this.props.showDeleteMovieModal();
+                                    onClick={(e) => {
+                                        console.log(this.props.id);
+                                        this.props.showDeleteMovieModal(this.props.id, true);
                                         this.closeMenu();
                                     }
 

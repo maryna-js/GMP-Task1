@@ -1,33 +1,23 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Logo from '../logo';
 import AddMovie from '../add-movie';
 import './index.scss';
 
-class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { show: false };
-    }
-
-    showModal() {
-        this.setState({
-            show: true
-        });
-    }
-    render() {
-
-
-        return (
-            <div className="wrapper" >
+function Header(props) {
+    const { showAddMovieModal } = props;
+    return (
+        <div className="wrapper" >
+            <Link to="/" className="logo-header">
                 <Logo />
-                <button className="add-button" onClick={e => {
-                    this.props.showAddMovieModal();
-                }}>
-                    + Add movie
+            </Link>
+            <button className="add-button" onClick={e => {
+                showAddMovieModal(true);
+            }}>
+                + Add movie
             </button>
-                <AddMovie show={this.state.show} />
-            </div>
-        );
-    }
+        </div>
+    );
 }
+
 export default Header;
