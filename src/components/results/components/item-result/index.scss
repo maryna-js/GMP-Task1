@@ -2,6 +2,7 @@
   &-result {
     width: 31%;
     position: relative;
+    margin-top: 20px;
   }
   &-description {
     display: flex;
@@ -13,6 +14,13 @@
   &-name {
     font-family: "Lato-Regular";
     font-size: 1.2rem;
+  }
+  &-link {
+    text-decoration: none;
+    color: #bdbdbd;
+    &:hover {
+      opacity: 0.8;
+    }
   }
   &-year {
     font-family: "Lato-Light";
