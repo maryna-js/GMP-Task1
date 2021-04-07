@@ -42,13 +42,12 @@ export default class MenuDropdown extends Component {
                                 <button
                                     className="menu-button-item"
                                     onClick={() => {
-                                        this.props.showEditMovieModal(true);
+                                        this.props.showEditMovieModal(this.props.id, true);
                                         this.closeMenu();
                                     }}> Edit </button>
                                 <button
                                     className="menu-button-item"
                                     onClick={(e) => {
-                                        console.log(this.props.id);
                                         this.props.showDeleteMovieModal(this.props.id, true);
                                         this.closeMenu();
                                     }

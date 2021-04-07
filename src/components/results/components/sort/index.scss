@@ -13,6 +13,10 @@
     text-transform: uppercase;
     padding-right: 15px;
   }
+  &-wrapper {
+    display: flex;
+    align-items: center;
+  }
 }
 
 .filter-tabs-item {

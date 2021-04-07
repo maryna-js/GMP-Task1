@@ -1,15 +1,28 @@
 import React from "react";
 import './index.scss';
 
-function SortBy() {
+function SortBy(props) {
+    const { setSortValue, setFilterValue } = props;
     return (
         <div className="sort-items">
-            <div className="sort-by">Sort by</div>
-            <select name="select" className="filter-tabs-item">
-                <option value="value1" vlaue="Release Date">Release Date</option>
-                <option value="value2">Value 2</option>
-                <option value="value3">Value 3</option>
-            </select>
+            <div className="sort-wrapper">
+                <div className="sort-by">Sort by: Title</div>
+                <select name="select" className="filter-tabs-item" onChange={(e) => { setSortValue(e.target.value) }}>
+                    <option>Choose sort</option>
+                    <option value="asc">asc</option>
+                    <option value="desc">desc</option>
+                </select>
+            </div>
+            <div className="sort-wrapper">
+                <div className="sort-by">Filter by genre</div>
+                <select name="select" className="filter-tabs-item" onChange={(e) => { setFilterValue(e.target.value) }}>
+                    <option>Choose genre</option>
+                    <option value="drama" >Drama</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="adventure">Adventure</option>
+                    <option value="fantasy">Fantasy</option>
+                </select>
+            </div>
         </div>
     );
 }

@@ -1,10 +1,12 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { removeMovieByIdData } from "../../actions/movies";
 import './index.scss';
 
 
-export default function DeleteMovie(props) {
+function DeleteMovie(props) {
 
-    const { showDeleteMovie, closeDeleteMovieModal, id, deleteMovieFromList } = props;
+    const { showDeleteMovie, closeDeleteMovieModal, id, deleteMovieFromList, removeMovieByIdData } = props;
     if (!showDeleteMovie) {
         return null;
     }
@@ -23,6 +25,7 @@ export default function DeleteMovie(props) {
                 <div className="add-modal-button-container">
                     <button className="add-modal-button-submit" onClick={() => {
                         deleteMovieFromList(id);
+                        removeMovieByIdData(id);
                         return closeDeleteMovieModal(false)
                     }}>Confirm</button>
                 </div>
@@ -31,3 +34,17 @@ export default function DeleteMovie(props) {
     );
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+        movie: state.movie
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        removeMovieByIdData: id => dispatch(removeMovieByIdData(id))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteMovie);
