@@ -1,4 +1,5 @@
-import React, { Component, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { connect } from 'react-redux';
 import {
     BrowserRouter,
     Route,
@@ -14,6 +15,9 @@ import EditMovie from './edit-movie';
 import DeleteMovie from './delete-movie';
 import MovieDetails from './movie-details';
 import '../styles/style.scss';
+import { moviesFetchData } from '../actions/movies';
+
+
 
 const data = [
     {
@@ -66,18 +70,28 @@ const useDocumentTitle = title => {
     }, [title]);
 }
 
-function App() {
+function App(props) {
     const [addMovie, setAddMovie] = useState(false);
     const [editMovie, setEditMovie] = useState(false);
     const [deleteMovie, setDeleteMovie] = useState(false);
-    const [idMovie, setIdMovie] = useState(0);
     const [movieList, setMovieList] = useState(data);
+    const [idMovie, setIdMovie] = useState(0);
+    const [idMovieEdit, setIdMovieEdit] = useState(0);
+    const [searchValue, setSearchValue] = useState('');
+    const [sortValue, setSortValue] = useState('');
+    const [filterValue, setFilterValue] = useState('');
 
-    const quantityMovies = movieList.length;
-    const [count, setCount] = useState(quantityMovies);
+    const quantityMovies = props.movies.totalAmount && props.movies.totalAmount;
+    const [count, setCount] = useState(0);
     useEffect(() => {
-        setCount(quantityMovies);
+        if (quantityMovies) {
+            setCount(quantityMovies);
+        }
+
     }, [movieList]);
+    useEffect(() => {
+        props.fetchData(`http://localhost:4000/movies?search=${searchValue}&searchBy=title&sortBy=title&sortOrder=${sortValue}&filter=${filterValue}`);
+    }, [props.movies.totalAmount, searchValue, sortValue, filterValue]);
 
     const title = `${count} movies were found`;
     useDocumentTitle(title);
@@ -85,6 +99,11 @@ function App() {
     function showDeleteMovieModal(id, boolean) {
         setDeleteMovie(boolean);
         return setIdMovie(id);
+    }
+
+    function showEditMovieModal(id, boolean) {
+        setEditMovie(boolean);
+        return setIdMovieEdit(id);
     }
 
     const deleteMovieFromListCallback = useCallback(
@@ -108,10 +127,10 @@ function App() {
                     <BrowserRouter>
                         <Route exact path="/">
                             <Header showAddMovieModal={setAddMovie} />
-                            <SearchPanel />
-                            <SearchResults data={movieList} showEditMovieModal={setEditMovie} showDeleteMovieModal={showDeleteMovieModal} count={count} />
+                            <SearchPanel setSearchValue={setSearchValue} />
+                            <SearchResults data={props.movies.data && props.movies.data} showEditMovieModal={showEditMovieModal} showDeleteMovieModal={showDeleteMovieModal} count={quantityMovies} setSortValue={setSortValue} setFilterValue={setFilterValue} />
                         </Route>
-                        <Route exact path="/movie-details">
+                        <Route exact path="/movie-details/:id" >
                             <HeaderSearch />
                             <MovieDetails />
                         </Route>
@@ -119,12 +138,23 @@ function App() {
                     <Footer />
                 </div>
                 <AddMovie showAddMovie={addMovie} closeAddMovieModal={setAddMovie} />
-                <EditMovie showEditMovie={editMovie} closeEditMovieModal={setEditMovie} />
+                <EditMovie showEditMovie={editMovie} closeEditMovieModal={setEditMovie} id={idMovieEdit} />
                 <DeleteMovie showDeleteMovie={deleteMovie} closeDeleteMovieModal={setDeleteMovie} id={idMovie} deleteMovieFromList={deleteMovieFromListCallback} />
             </ErrorBoundary>
         </div>
     );
-
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        movies: state.movies
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchData: url => dispatch(moviesFetchData(url))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

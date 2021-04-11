@@ -2,23 +2,35 @@ import React from "react";
 import NoImage from '../../../../assets/images/no-image.png';
 import './index.scss';
 
-function Details() {
+function Details(props) {
+    const { budget,
+        genres,
+        id,
+        overview,
+        poster_path,
+        release_date,
+        revenue,
+        runtime,
+        tagline,
+        title,
+        vote_average,
+        vote_count } = props.movieDetails;
     return (
         <div className="container-details">
             <div className="container-image">
-                <img src={NoImage} alt="" width="300px" />
+                <img src={poster_path} alt="" width="300px" />
             </div>
             <div className="container-description">
                 <div className="container-name">
-                    <h3>Pulp Fiction</h3>
-                    <div className="container-rating">4.2</div>
+                    <h3>{title}</h3>
+                    <div className="container-rating">{vote_average}</div>
                 </div>
                 <div className="container-name">
-                    <span className="container-duration">1994</span>
-                    <span className="container-duration">154 min</span>
+                    <span className="container-duration">{release_date}</span>
+                    <span className="container-duration">{runtime} min</span>
                 </div>
                 <div className="container-description">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,
+                    {overview}
                 </div>
             </div>
         </div>

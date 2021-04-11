@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { connect } from 'react-redux';
+import { getMovieByIdData } from "../../actions/movies";
 import SearchResults from '../results';
 import Details from './components/details';
 import './index.scss';
@@ -48,12 +51,34 @@ const data = [
     }
 ];
 
-function MovieDetails() {
+function MovieDetails(props) {
+    const { id } = useParams();
+    const {
+        getMovieByIdData, movie
+    } = props;
+    useEffect(() => {
+        getMovieByIdData(id);
+    }, [])
+
     return (
         <div className="wrapper-details">
-            <Details />
+            <Details movieDetails={movie && movie} />
             <SearchResults data={data} />
         </div>
     );
 }
-export default MovieDetails;
+
+const mapStateToProps = (state) => {
+    return {
+        movie: state.movie
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getMovieByIdData: id => dispatch(getMovieByIdData(id))
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieDetails);
+// export default MovieDetails;
