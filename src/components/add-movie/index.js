@@ -1,16 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from 'react-redux';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
+import TextInput from '../form/TextInput';
+import SelectInput from '../form/SelectInput';
 import { createMovieData } from '../../actions/movies';
 import './index.scss';
 
 
 function AddMovieModal(props) {
     const { showAddMovie, closeAddMovieModal } = props;
-    const [movieTitle, setMovieTitle] = useState('');
-    const [movieRelease, setMovieRelease] = useState('');
-    const [movieURL, setMovieURL] = useState('');
-    const [movieOverview, setMovieOverview] = useState('');
-    const [movieRuntime, setMovieRuntime] = useState(0);
     if (!showAddMovie) {
         return null;
     }
@@ -22,72 +21,140 @@ function AddMovieModal(props) {
             <div>
                 <h2 className="add-modal-heading">Add movie</h2>
             </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="title" className="add-modal-field-label">Title</label>
-                <input type="text" id="title" placeholder="Title" className="add-modal-field-input" onChange={(e) => {
-                    setMovieTitle(e.target.value)
-                }} />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="release-date" className="add-modal-field-label">Release date</label>
-                <input type="date" id="release-date" placeholder="Release date" className="add-modal-field-input"
-                    onChange={(e) => {
-                        setMovieRelease(e.target.value)
-                    }} />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="movie-url" className="add-modal-field-label">Movie URL</label>
-                <input type="text" id="movie-url" placeholder="Movie URL" className="add-modal-field-input" onChange={(e) => {
-                    setMovieURL(e.target.value)
-                }} />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="genre" className="add-modal-field-label">Genre</label>
-                <select name="select" id="genre" className="add-modal-field-input">
-                    <option value="value1" vlaue="Release Date">Comedy</option>
-                    <option value="value2">Drama</option>
-                    <option value="value3">Horror</option>
-                </select>
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="overview" className="add-modal-field-label">Overview</label>
-                <input type="text" id="overview" placeholder="Overview" className="add-modal-field-input"
-                    onChange={(e) => {
-                        setMovieOverview(e.target.value)
-                    }} />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="runtime" className="add-modal-field-label">Runtime</label>
-                <input type="text" id="runtime" placeholder="Runtime" className="add-modal-field-input"
-                    onChange={(e) => {
-                        setMovieRuntime(parseInt(e.target.value, 10))
-                    }} />
-            </div>
-            <div className="add-modal-button-container">
-                <button className="add-modal-button-reset">Reset</button>
-                <button className="add-modal-button-submit" onClick={() => {
-                    props.createMovieData({
-                        "title": movieTitle,
-                        "tagline": "Here's to the fools who dream.",
-                        "vote_average": 7.9,
-                        "vote_count": 6782,
-                        "release_date": movieRelease,
-                        "poster_path": movieURL,
-                        "overview": movieOverview,
-                        "budget": 30000000,
-                        "revenue": 445435700,
-                        "runtime": movieRuntime,
-                        "genres": [
-                            "Comedy",
-                            "Drama",
-                            "Romance"
-                        ]
-                    });
+
+            <Formik
+                initialValues={{
+                    title: "",
+                    release_date: "",
+                    poster_path: "",
+                    overview: "",
+                    runtime: 0,
+                    tagline: "",
+                    vote_average: 0,
+                    vote_count: 0,
+                    budget: 0,
+                    revenue: 0,
+                    genres: [],
+                }}
+                enableReinitialize={true}
+                validationSchema={Yup.object({
+                    title: Yup.string()
+                        .min(1, 'Must be 1 character or more')
+                        .required('Required'),
+                    poster_path: Yup.string().url().min(1, 'Must be 1 character or more').
+                        required('Required'),
+                    overview: Yup.string()
+                        .min(10, 'Must be 10 character or more')
+                        .required('Required'),
+                    runtime: Yup.number()
+                        .min(0, 'Must be 0 or more')
+                        .required('Required'),
+                    genres: Yup.array().of(Yup.string()).min(1, "Must be selected 1 genre or more").required('Required'),
+                    release_date: Yup.date().min(1, 'Must be 1 character or more')
+                        .required('Required'),
+                    tagline: Yup.string()
+                        .min(1, 'Must be 1 character or more').required('Required'),
+                    vote_average: Yup.number().max(10, 'Must be not more then 10 '),
+                    vote_count: Yup.number(),
+                    budget: Yup.number()
+                        .min(0, 'Must be 0 or more'),
+                    revenue: Yup.number()
+                        .min(0, 'Must be 0 or more'),
+                })}
+                onSubmit={(values, { setSubmitting }) => {
+                    props.createMovieData(values);
                     closeAddMovieModal();
-                }
-                }>Submit</button>
-            </div>
-        </div>
+                }}
+            >
+                <Form>
+                    <TextInput
+                        label="Title *"
+                        name="title"
+                        type="text"
+                        placeholder="Title"
+                    />
+
+                    <TextInput
+                        label="Tagline *"
+                        name="tagline"
+                        type="text"
+                        placeholder="tagline"
+                    />
+
+                    <TextInput
+                        label="Vote Average"
+                        name="vote_average"
+                        type="number"
+                        placeholder="Vote Average"
+                    />
+
+                    <TextInput
+                        label="Vote Count"
+                        name="vote_count"
+                        type="number"
+                        placeholder="Vote Count"
+                    />
+
+                    <TextInput
+                        label="Release date *"
+                        name="release_date"
+                        type="date"
+                        placeholder="Release date"
+                    />
+
+                    <TextInput
+                        label="Movie URL *"
+                        name="poster_path"
+                        type="text"
+                        placeholder="Movie URL"
+                    />
+
+                    <SelectInput label="Genre *" name="genres">
+                        <option value="">Select a genre</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Horror">Horror</option>
+                    </SelectInput>
+
+                    <TextInput
+                        label="Overview *"
+                        name="overview"
+                        type="text"
+                        placeholder="Overview"
+                    />
+
+                    <TextInput
+                        label="Runtime *"
+                        name="runtime"
+                        type="number"
+                        placeholder="Runtime"
+                    />
+
+                    <TextInput
+                        label="Budget"
+                        name="budget"
+                        type="number"
+                        placeholder="Budget"
+                    />
+
+                    <TextInput
+                        label="Revenue"
+                        name="revenue"
+                        type="number"
+                        placeholder="Revenue"
+                    />
+
+                    <div className="add-modal-button-container">
+
+                        <button type="reset" className="add-modal-button-reset"
+                        >Reset</button>
+                        <button type="submit" className="add-modal-button-submit"
+                        >Save</button>
+                    </div>
+                </Form>
+
+            </Formik>
+        </div >
     );
 }
 

@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from 'react-redux';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 import { getMovieByIdData, updateMovieByIdData } from "../../actions/movies";
+import TextInput from '../form/TextInput';
+import SelectInput from '../form/SelectInput';
 import './index.scss';
 
 
@@ -9,18 +13,10 @@ function EditMovie(props) {
     if (!showEditMovie) {
         return null;
     }
-
-
     useEffect(() => {
         getMovieByIdData(id, movie);
     }, [id])
 
-    const movieOverviewValue = movie.overview && movie.overview;
-    const [movieTitle, setMovieTitle] = useState(movie.title);
-    const [movieRelease, setMovieRelease] = useState(movie.release_date);
-    const [movieURL, setMovieURL] = useState(movie.poster_path);
-    const [movieOverview, setMovieOverview] = useState(movieOverviewValue);
-    const [movieRuntime, setMovieRuntime] = useState(movie.runtime);
     return (
         <div className="add-modal">
             <div className="add-modal-header">
@@ -29,82 +25,157 @@ function EditMovie(props) {
             <div>
                 <h2 className="add-modal-heading">Edit movie</h2>
             </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="movie-id" className="add-modal-field-label">Movie ID</label>
-                <input type="text" id="movie-id" placeholder="MO356984" className="add-modal-field-input" value={movie.id} />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="title" className="add-modal-field-label">Title</label>
-                <input type="text" id="title" className="add-modal-field-input" value={movieTitle ? movieTitle : movie.title}
-                    onChange={(e) => {
-                        setMovieTitle(e.target.value)
-                    }} />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="release-date" className="add-modal-field-label">Release date</label>
-                <input type="date" id="release-date" placeholder="Release date" className="add-modal-field-input" value={movieRelease ? movieRelease : movie.release_date}
-                    onChange={(e) => {
-                        setMovieRelease(e.target.value)
-                    }}
-                />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="movie-url" className="add-modal-field-label">Movie URL</label>
-                <input type="text" id="movie-url" placeholder="Movie URL" className="add-modal-field-input" value={movieURL ? movieURL : movie.poster_path}
-                    onChange={(e) => {
-                        setMovieURL(e.target.value)
-                    }}
-                />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="genre" className="add-modal-field-label">Genre</label>
-                <select name="select" id="genre" className="add-modal-field-input">
-                    <option value="value1" vlaue="Release Date">Comedy</option>
-                    <option value="value2">Drama</option>
-                    <option value="value3">Horror</option>
-                </select>
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="overview" className="add-modal-field-label">Overview</label>
-                <input type="text" id="overview" placeholder="Overview" className="add-modal-field-input" value={movieOverview ? movieOverview : movie.overview}
-                    onChange={(e) => {
-                        setMovieOverview(e.target.value)
-                    }}
-                />
-            </div>
-            <div className="add-modal-field-container">
-                <label htmlFor="runtime" className="add-modal-field-label">Runtime</label>
-                <input type="text" id="runtime" placeholder="Runtime" className="add-modal-field-input" value={movieRuntime ? movieRuntime : movie.runtime}
-                    onChange={(e) => {
-                        setMovieRuntime(parseInt(e.target.value, 10))
-                    }}
-                />
-            </div>
-            <div className="add-modal-button-container">
-                <button className="add-modal-button-reset">Reset</button>
-                <button className="add-modal-button-submit" onClick={() => {
-                    props.updateMovieByIdData({
-                        "id": id,
-                        "title": movieTitle,
-                        "tagline": "Here's to the fools who dream.",
-                        "vote_average": 7.9,
-                        "vote_count": 6782,
-                        "release_date": movieRelease,
-                        "poster_path": movieURL,
-                        "overview": movieOverview,
-                        "budget": 30000000,
-                        "revenue": 445435700,
-                        "runtime": movieRuntime,
-                        "genres": [
-                            "Comedy",
-                            "Drama",
-                            "Romance"
-                        ]
-                    });
-                    closeEditMovieModal();
-                }}>Save</button>
-            </div>
-        </div>
+            <Formik
+                initialValues={{
+                    id: movie?.id ?? "",
+                    title: movie?.title ?? "",
+                    release_date: movie?.release_date ?? "",
+                    poster_path: movie?.poster_path ?? "",
+                    overview: movie?.overview ?? "",
+                    runtime: movie?.runtime ?? "",
+                    tagline: movie?.tagline ?? "",
+                    vote_average: movie?.vote_average ?? "",
+                    vote_count: movie?.vote_count ?? "",
+                    budget: movie?.budget ?? "",
+                    revenue: movie?.revenue ?? "",
+                    genres: movie?.genres ?? "",
+
+                }}
+                enableReinitialize={true}
+                validationSchema={Yup.object({
+                    title: Yup.string()
+                        .min(1, 'Must be 1 character or more')
+                        .required('Required'),
+                    poster_path: Yup.string().url().
+                        required('Required'),
+                    overview: Yup.string()
+                        .min(10, 'Must be 10 character or more')
+                        .required('Required'),
+                    runtime: Yup.number()
+                        .min(0, 'Must be 0 or more')
+                        .required('Required'),
+                    genres: Yup.array().of(Yup.string()).min(1, "Must be selected 1 genre or more").required('Required'),
+                    release_date: Yup.date(),
+                    tagline: Yup.string()
+                        .min(1, 'Must be 1 character or more'),
+                    vote_average: Yup.number().max(10, 'Must be not more then 10 '),
+                    vote_count: Yup.number(),
+                    budget: Yup.number()
+                        .min(0, 'Must be 0 or more'),
+                    revenue: Yup.number()
+                        .min(0, 'Must be 0 or more'),
+
+                })}
+
+            >
+                {({
+                    values,
+                    resetForm
+                }) => {
+                    return (
+                        <Form>
+                            <TextInput
+                                label="Movie ID"
+                                name="movie-id"
+                                type="text"
+                                placeholder="MO356984"
+                                value={movie.id || ''}
+                            />
+
+                            <TextInput
+                                label="Title *"
+                                name="title"
+                                type="text"
+                                placeholder="Title"
+                            />
+
+                            <TextInput
+                                label="Tagline"
+                                name="tagline"
+                                type="text"
+                                placeholder="tagline"
+                            />
+
+                            <TextInput
+                                label="Vote Average"
+                                name="vote_average"
+                                type="number"
+                                placeholder="Vote Average"
+                            />
+
+                            <TextInput
+                                label="Vote Count"
+                                name="vote_count"
+                                type="number"
+                                placeholder="Vote Count"
+                            />
+
+                            <TextInput
+                                label="Release date"
+                                name="release_date"
+                                type="date"
+                                placeholder="Release date"
+                            />
+
+                            <TextInput
+                                label="Movie URL *"
+                                name="poster_path"
+                                type="text"
+                                placeholder="Movie URL"
+                            />
+
+                            <SelectInput label="Genre *" name="genres">
+                                <option value="">Select a genre</option>
+                                <option value="Comedy">Comedy</option>
+                                <option value="Drama">Drama</option>
+                                <option value="Horror">Horror</option>
+                            </SelectInput>
+
+
+
+                            <TextInput
+                                label="Overview *"
+                                name="overview"
+                                type="text"
+                                placeholder="Overview"
+                            />
+
+                            <TextInput
+                                label="Runtime *"
+                                name="runtime"
+                                type="number"
+                                placeholder="Runtime"
+                            />
+
+                            <TextInput
+                                label="Budget"
+                                name="budget"
+                                type="number"
+                                placeholder="Budget"
+                            />
+
+                            <TextInput
+                                label="Revenue"
+                                name="revenue"
+                                type="number"
+                                placeholder="Revenue"
+                            />
+                            <div className="add-modal-button-container">
+
+                                <button type="reset" className="add-modal-button-reset" onClick={() => {
+                                    resetForm();
+                                }}>Reset</button>
+                                <button type="submit" className="add-modal-button-submit"
+                                    onClick={() => {
+                                        updateMovieByIdData(values);
+                                        closeEditMovieModal();
+                                    }}
+                                >Save</button>
+                            </div>
+                        </Form>);
+                }}
+            </Formik>
+        </div >
     );
 }
 
