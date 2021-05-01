@@ -36,10 +36,17 @@
       font-size: 1.1rem;
       text-transform: uppercase;
       font-family: "Lato-Thin";
+      width: 100%;
+      margin-top: 10px;
     }
     &-input {
       margin: 8px 0 0;
       padding: 10px 6px;
+      width: 95%;
+    }
+    &-error {
+      color: red;
+      padding-top: 10px;
     }
   }
   &-button {

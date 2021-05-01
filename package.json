@@ -36,6 +36,7 @@
   "dependencies": {
     "@babel/runtime": "^7.13.10",
     "axios": "^0.21.1",
+    "formik": "^2.2.6",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -44,7 +45,8 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "yup": "^0.32.9"
   },
   "bugs": {
     "url": "https://github.com/maryna-js/GMP-Task1/issues"
