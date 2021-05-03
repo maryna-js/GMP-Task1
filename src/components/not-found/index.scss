@@ -1,0 +1,15 @@
+.not-found {
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: #232323;
+    padding: 30px 20px;
+    min-height: 66vh;
+  }
+  &-text {
+    color: white;
+    font-size: 28px;
+  }
+}

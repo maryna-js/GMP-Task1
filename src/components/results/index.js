@@ -15,7 +15,12 @@ function SearchResults(props) {
             </div>
             <div className="wrapper-results-box">
                 <ResultCount count={count} />
-                <ItemList data={data && data} showEditMovieModal={showEditMovieModal} showDeleteMovieModal={showDeleteMovieModal} />
+                {
+                    data ?
+                        <ItemList data={data && data} showEditMovieModal={showEditMovieModal} showDeleteMovieModal={showDeleteMovieModal} />
+                        :
+                        <p className="result-count">Not Found</p>
+                }
             </div>
         </div>
     );

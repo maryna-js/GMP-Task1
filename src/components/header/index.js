@@ -1,22 +1,27 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom"
 import Logo from '../logo';
-import AddMovie from '../add-movie';
 import './index.scss';
 
 function Header(props) {
     const { showAddMovieModal } = props;
+    const history = useHistory();
     return (
         <div className="wrapper" >
-            <Link to="/" className="logo-header">
+            <button onClick={() => {
+                props.setSearchValue('');
+                props.setSortValue('');
+                props.setFilterValue('');
+                history.push("/")
+            }} className="logo-header">
                 <Logo />
-            </Link>
+            </button>
             <button className="add-button" onClick={e => {
                 showAddMovieModal(true);
             }}>
                 + Add movie
             </button>
-        </div>
+        </div >
     );
 }
 

@@ -26,6 +26,12 @@
 
 .logo-header {
   text-decoration: none;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
   &:hover {
     opacity: 0.8;
   }
