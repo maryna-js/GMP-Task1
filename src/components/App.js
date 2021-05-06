@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import {
     BrowserRouter,
     Route,
+    Switch,
+    Redirect,
+    useHistory
 } from "react-router-dom";
 import Header from './header';
 import HeaderSearch from './header-search';
@@ -16,7 +19,8 @@ import DeleteMovie from './delete-movie';
 import MovieDetails from './movie-details';
 import '../styles/style.scss';
 import { moviesFetchData } from '../actions/movies';
-
+import ErrorPage from './error';
+import NotFoundPage from './not-found';
 
 
 const data = [
@@ -125,15 +129,60 @@ function App(props) {
             <ErrorBoundary>
                 <div className={`${(addMovie || editMovie || deleteMovie) && 'container-blur'}`}>
                     <BrowserRouter>
-                        <Route exact path="/">
-                            <Header showAddMovieModal={setAddMovie} />
-                            <SearchPanel setSearchValue={setSearchValue} />
-                            <SearchResults data={props.movies.data && props.movies.data} showEditMovieModal={showEditMovieModal} showDeleteMovieModal={showDeleteMovieModal} count={quantityMovies} setSortValue={setSortValue} setFilterValue={setFilterValue} />
-                        </Route>
-                        <Route exact path="/movie-details/:id" >
-                            <HeaderSearch />
-                            <MovieDetails />
-                        </Route>
+                        <Switch>
+                            <Route exact path="/">
+                                <Header
+                                    showAddMovieModal={setAddMovie}
+                                    setSearchValue={setSearchValue}
+                                    setSortValue={setSortValue}
+                                    setFilterValue={setFilterValue}
+                                />
+                                <SearchPanel setSearchValue={setSearchValue} />
+
+                                <SearchResults
+                                    data={(searchValue.length > 1 || sortValue) && props.movies.data}
+                                    showEditMovieModal={showEditMovieModal}
+                                    showDeleteMovieModal={showDeleteMovieModal}
+                                    count={(searchValue.length > 1 || sortValue) && quantityMovies}
+                                    setSortValue={setSortValue}
+                                    setFilterValue={setFilterValue} />
+
+                            </Route>
+                            <Route path="/search/:searchQuery" render={(values) =>
+                                <>
+                                    <Header
+                                        showAddMovieModal={setAddMovie}
+                                        setSearchValue={setSearchValue}
+                                        setSortValue={setSortValue}
+                                        setFilterValue={setFilterValue}
+                                    />
+
+
+                                    <SearchPanel {...values} setSearchValue={setSearchValue} />
+                                    <SearchResults key={props.location} data={props.movies.data && props.movies.data} showEditMovieModal={showEditMovieModal} showDeleteMovieModal={showDeleteMovieModal} count={quantityMovies} setSortValue={setSortValue} setFilterValue={setFilterValue} />
+                                </>
+                            } >
+
+
+                            </Route>
+
+
+                            <Route exact path="/movie-details/:id" >
+                                <HeaderSearch />
+                                <MovieDetails />
+                            </Route>
+                            <Route path="/not-found">
+                                <HeaderSearch />
+                                <NotFoundPage />
+                            </Route>
+                            <Route
+                                path='/404'
+                            >
+                                <HeaderSearch />
+                                <ErrorPage />
+                            </Route>
+                            <Redirect to="/404" />
+                        </Switch>
                     </BrowserRouter>
                     <Footer />
                 </div>

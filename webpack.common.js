@@ -8,6 +8,7 @@ module.exports = {
         path: path.join(__dirname, "dist"),
         filename: '[name].bundle.js',
         chunkFilename: '[name].bundle.js',
+        publicPath: '/'
     },
     module: {
         rules: [
