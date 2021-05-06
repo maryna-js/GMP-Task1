@@ -4,7 +4,6 @@ import thunk from "redux-thunk";
 import { movies } from "./movies";
 import { createMovieSuccess, getMovieByIdSuccess, updateMovieByIdSuccess, removeMovieByIdSuccess, moviesFetchData, createMovieData, getMovieByIdData, updateMovieByIdData, removeMovieByIdData } from '../actions/movies'
 
-
 const mockStore = configureMockStore([thunk]);
 
 describe("movie reducer", () => {
@@ -31,8 +30,6 @@ describe("movie reducer", () => {
             runtime: 106
         };
     });
-
-
 
     it("returns the initial state when an action type is not passed", () => {
         expect(movies(undefined, {})).toEqual(initialState.movies);
