@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getMovieByIdData } from "../../actions/movies";
 import SearchResults from '../results';
 import Details from './components/details';
-import './index.scss';
+// import './index.scss';
 
 const data = [
     {

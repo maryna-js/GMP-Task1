@@ -5,7 +5,6 @@ import * as Yup from 'yup';
 import TextInput from '../form/TextInput';
 import SelectInput from '../form/SelectInput';
 import { createMovieData } from '../../actions/movies';
-import './index.scss';
 
 
 function AddMovieModal(props) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom"
 import Logo from '../logo';
-import './index.scss';
+// import './index.scss';
 
 function Header(props) {
     const { showAddMovieModal } = props;

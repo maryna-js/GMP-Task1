@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom"
-import './index.scss';
 
 function SearchPanel(props) {
     const [query, setQuery] = useState("");

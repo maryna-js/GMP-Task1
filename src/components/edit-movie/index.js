@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { getMovieByIdData, updateMovieByIdData } from "../../actions/movies";
 import TextInput from '../form/TextInput';
 import SelectInput from '../form/SelectInput';
-import './index.scss';
+// import './index.scss';
 
 
 function EditMovie(props) {

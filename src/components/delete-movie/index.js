@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { removeMovieByIdData } from "../../actions/movies";
-import './index.scss';
+// import './index.scss';
 
 
 function DeleteMovie(props) {

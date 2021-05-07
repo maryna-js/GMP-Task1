@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { getMovieByIdData } from "../../actions/movies";
-import './index.scss';
-import Image404 from '../../assets/images/404.png';
+// import './index.scss';
+// import Image404 from '../../assets/images/404.png';
 
 
 function NotFoundPage(props) {
