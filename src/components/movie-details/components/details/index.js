@@ -1,6 +1,6 @@
 import React from "react";
-import NoImage from '../../../../assets/images/no-image.png';
-import './index.scss';
+// import NoImage from '../../../../assets/images/no-image.png';
+// import './index.scss';
 
 function Details(props) {
     const { budget,
@@ -18,7 +18,7 @@ function Details(props) {
     return (
         <div className="container-details">
             <div className="container-image">
-                <img src={poster_path} alt="" width="300px" />
+                {/* <img src={poster_path} alt="" width="300px" /> */}No image
             </div>
             <div className="container-description">
                 <div className="container-name">

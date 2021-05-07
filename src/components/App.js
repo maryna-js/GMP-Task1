@@ -5,7 +5,8 @@ import {
     Route,
     Switch,
     Redirect,
-    useHistory
+    useHistory,
+    StaticRouter
 } from "react-router-dom";
 import Header from './header';
 import HeaderSearch from './header-search';
@@ -17,7 +18,7 @@ import AddMovie from './add-movie';
 import EditMovie from './edit-movie';
 import DeleteMovie from './delete-movie';
 import MovieDetails from './movie-details';
-import '../styles/style.scss';
+// import '../styles/style.scss';
 import { moviesFetchData } from '../actions/movies';
 import ErrorPage from './error';
 import NotFoundPage from './not-found';
@@ -128,7 +129,7 @@ function App(props) {
         <div className="container">
             <ErrorBoundary>
                 <div className={`${(addMovie || editMovie || deleteMovie) && 'container-blur'}`}>
-                    <BrowserRouter>
+                    <StaticRouter>
                         <Switch>
                             <Route exact path="/">
                                 <Header
@@ -183,7 +184,7 @@ function App(props) {
                             </Route>
                             <Redirect to="/404" />
                         </Switch>
-                    </BrowserRouter>
+                    </StaticRouter>
                     <Footer />
                 </div>
                 <AddMovie showAddMovie={addMovie} closeAddMovieModal={setAddMovie} />

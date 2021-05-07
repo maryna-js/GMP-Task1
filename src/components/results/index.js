@@ -3,7 +3,7 @@ import Filter from './components/filter/';
 import SortBy from './components/sort/';
 import ResultCount from './components/count';
 import ItemList from './components/items-list';
-import './index.scss';
+// import './index.scss';
 
 function SearchResults(props) {
     const { showEditMovieModal, showDeleteMovieModal, data, count, setSortValue, setFilterValue } = props;

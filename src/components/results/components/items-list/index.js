@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import ItemResult from '../item-result';
-import './index.scss';
+// import './index.scss';
 
 function ItemsList({ data, showEditMovieModal, showDeleteMovieModal }) {
     return (

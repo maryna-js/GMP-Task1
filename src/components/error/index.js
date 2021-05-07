@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { getMovieByIdData } from "../../actions/movies";
-import './index.scss';
-import Image404 from '../../assets/images/404.png';
+// import './index.scss';
+// import Image404 from '../../assets/images/404.png';
 
 
 function ErrorPage(props) {
@@ -10,7 +10,7 @@ function ErrorPage(props) {
 
     return (
         <div className="wrapper-details">
-            <img src={Image404} alt="" />
+            {/* <img src={Image404} alt="" /> */}Error page
         </div>
     );
 }
